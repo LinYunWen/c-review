@@ -1,2 +1,8 @@
 .vscode/
 setting.json
+
+# mac file
+.DS_Store
+
+# executable file
+*.o
