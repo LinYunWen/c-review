@@ -11,6 +11,8 @@ int FuncX(struct node *head, int *data) {
     struct node *node;
     for (node = head->next; node && node != head; node = node->next)
         data++;
+        // *data++;
+        // (*data)++;
     return node - head;
 }
 
