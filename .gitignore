@@ -1,5 +1,11 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
 .vscode/
-setting.json
+settings.json
 
 # mac file
 .DS_Store
