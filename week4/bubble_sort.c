@@ -6,22 +6,33 @@ struct node {
     struct node *next, *prev;
 };
 
-void exchange(struct node *left, struct node *right) {
-    struct node* temp = left;
-    left->next = right->next;
-    left->prev = right->prev;
-    right->next = temp->next;
-    right->prev = temp->prev;
+
+void display(struct node *start) {
+    struct node *temp = start;
+    printf("Traversal in forward direction \n");
+    // for (; temp->next != start; temp = temp->next) {
+    for (int i = 0; i < 10 && temp->next != start; temp = temp->next, i++) {
+	    printf("%d ", temp->data);
+    }
+    printf("%d ", temp->data);
+    printf("\n");
 }
 
-struct node *bubble_sort(struct node **start, int length) {
+void exchange(struct node **left, struct node **right) {
+    (*left)->next = (*right)->next;
+    (*right)->prev = (*left)->prev;
+    (*left)->prev = *right;
+    (*right)->next = *left;
+}
+
+void bubble_sort(struct node **start, int length) {
     struct node* left = *start;
     struct node* right = left->next;
 
     for (int i = 0; i < length - 1; i++) {
         for (int j = i+1; j < length; j++) {
             if (right->data < left->data) {
-                exchange(left, right);
+                exchange(&left, &right);
             }
             left = left->next;
             right = right->next;
@@ -52,10 +63,10 @@ int getLength(struct node** start) {
     }
     
     int count = 1;
-    struct node *temp = *start->next;
-    while (*start != temp) {
-        temp = temp->next;
+    struct node *temp = (*start)->next;
+    while ((*start) != temp) {
         count++;
+        temp = temp->next;
     }
     return count;
 }
@@ -70,10 +81,13 @@ int main() {
     append_node(&start, 23);
     append_node(&start, 86);
 
+    display(start);
+
     // get length of linked list
     int length = getLength(&start);
 
     // bubble sort
     bubble_sort(&start, length);
+    display(start);
     return 0;
 }
